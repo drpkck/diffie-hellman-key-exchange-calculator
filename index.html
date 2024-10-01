@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diffie-Hellman Key Exchange Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 40px 40px 40px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .result {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diffie-Hellman Key Exchange Calculator</h1>
+        <form method="POST">
+            <label for="prime">Prime Number (P):</label>
+            <input type="number" id="prime" name="prime" required min="3" value="{{ prime }}">
+
+            <label for="base">Base (G):</label>
+            <input type="number" id="base" name="base" required min="2" value="{{ base }}">
+
+            <label for="private_key_a">Alice's Private Key (a):</label>
+            <input type="number" id="private_key_a" name="private_key_a" min="2" value="{{ private_key_a }}">
+
+            <label for="private_key_b">Bob's Private Key (b):</label>
+            <input type="number" id="private_key_b" name="private_key_b" min="2" value="{{ private_key_b }}">
+
+            <input type="submit" value="Calculate">
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Results</h2>
+                <p><strong>Alice's Private Key (a):</strong> {{ result.private_key_a }}</p>
+                <p><strong>Alice's Public Key (A):</strong> {{ result.public_key_a }}</p>
+                <p><strong>Bob's Private Key (b):</strong> {{ result.private_key_b }}</p>
+                <p><strong>Bob's Public Key (B):</strong> {{ result.public_key_b }}</p>
+                <p><strong>Shared Secret (S):</strong> {{ result.shared_secret }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
